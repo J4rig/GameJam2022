@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlacingBlocks : MonoBehaviour
 {
-    private Vector3 mousePos;
     [SerializeField] Camera mainCam;
     public GameObject grabbedBlock; 
 
@@ -43,7 +42,7 @@ public class PlacingBlocks : MonoBehaviour
                 if (!grabbedBlock.GetComponent<BlockProperties>().isColliding)
                 {
                     grabbedBlock = null;
-                }
+                }            
             }
         }
     }
