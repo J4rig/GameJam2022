@@ -9,6 +9,9 @@ public class BlockClick : MonoBehaviour
         GameObject clickedBlock = gameObject.transform.parent.gameObject;
         Debug.Log(clickedBlock.name);
 
-        GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlacingBlocks>().grabbedBlock = clickedBlock;
+        if (clickedBlock.GetComponent<BlockProperties>().canMove)
+        {
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlacingBlocks>().grabbedBlock = clickedBlock;
+        }     
     }
 }

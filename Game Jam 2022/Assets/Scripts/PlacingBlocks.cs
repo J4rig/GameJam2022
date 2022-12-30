@@ -1,12 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class PlacingBlocks : MonoBehaviour
 {
     [SerializeField] Camera mainCam;
-    public GameObject grabbedBlock; 
+    public GameObject grabbedBlock;
+
+    private void Start()
+    {
+        string mapName = PlayerPrefs.GetString("selectedMap");
+        mapName = mapName.Substring(0, mapName.IndexOf("("));
+        GameObject map = Resources.Load<GameObject>("Prefabs/StartingGrids/" + mapName);
+        map = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity);
+        //map.GetComponent<BlockProperties>().canMove = false;
+    }
 
     void Update()
     {
@@ -39,10 +49,29 @@ public class PlacingBlocks : MonoBehaviour
 
             if (Input.GetMouseButtonDown(1))
             {
+                int outside = 0;
+                foreach (Transform block in grabbedBlock.transform)
+                {       
+                    if (!block.GetComponent<BlockCollisions>().colliding)
+                    {
+                        outside++;
+                    }
+                }
                 if (!grabbedBlock.GetComponent<BlockProperties>().isColliding)
                 {
+                    grabbedBlock.GetComponent<BlockProperties>().canMove = false;
+
+                    if (grabbedBlock.GetComponent<BlockProperties>().playersBlock)
+                    {
+                        GameObject.FindGameObjectWithTag("RedPoints").GetComponent<Points>().points += outside;
+                    }
+                    else
+                    {
+                        GameObject.FindGameObjectWithTag("BluePoints").GetComponent<Points>().points += outside;
+                    }
+                    
                     grabbedBlock = null;
-                }            
+                }       
             }
         }
     }

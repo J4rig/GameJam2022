@@ -6,6 +6,9 @@ public class BlockProperties : MonoBehaviour
 {
     public bool isColliding;
     public int colliding = 0;
+    public bool canMove;
+
+    public bool playersBlock;
 
     private void Update()
     {

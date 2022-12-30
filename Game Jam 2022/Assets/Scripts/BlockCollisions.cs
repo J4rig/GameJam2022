@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BlockCollisions : MonoBehaviour
 {
     [SerializeField] private Renderer obj;
-    [SerializeField] private bool colliding;
+    public bool colliding;
+
+    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("BasicBlock"))
@@ -33,13 +37,23 @@ public class BlockCollisions : MonoBehaviour
 
     private void Update()
     {
-        if (colliding)
+        if (gameObject.GetComponentInParent<BlockProperties>().canMove)
         {
-            obj.material.color = Color.white;
-        }
-        else
-        {
-            obj.material.color = Color.red;
-        }
+            if (colliding)
+            {
+                obj.material.color = Color.white;
+            }
+            else
+            {
+                if (gameObject.GetComponentInParent<BlockProperties>().playersBlock)
+                {
+                    obj.material.color = Color.red;
+                }
+                else
+                {
+                    obj.material.color = Color.blue;
+                }
+            }
+        } 
     }
 }
