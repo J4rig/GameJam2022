@@ -31,7 +31,9 @@ public class DraftManager : MonoBehaviour
     public void endTurn ()
     {
         if (player1Hand.Count + player2Hand.Count == 0)
-        {
+        {          
+            PlayerPrefs.SetInt("Player1score", GameObject.FindGameObjectWithTag("RedPoints").GetComponent<Points>().points);
+            PlayerPrefs.SetInt("Player2score", GameObject.FindGameObjectWithTag("BluePoints").GetComponent<Points>().points);
             SceneManager.LoadScene("GameOver");
         }
         else
