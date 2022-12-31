@@ -14,8 +14,7 @@ public class PlacingBlocks : MonoBehaviour
         string mapName = PlayerPrefs.GetString("selectedMap");
         mapName = mapName.Substring(0, mapName.IndexOf("("));
         GameObject map = Resources.Load<GameObject>("Prefabs/StartingGrids/" + mapName);
-        map = Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity);
-        //map.GetComponent<BlockProperties>().canMove = false;
+        Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity);
     }
 
     void Update()
@@ -51,11 +50,15 @@ public class PlacingBlocks : MonoBehaviour
             {
                 int outside = 0;
                 foreach (Transform block in grabbedBlock.transform)
-                {       
-                    if (!block.GetComponent<BlockCollisions>().colliding)
+                {
+                    Debug.Log(block.name);
+                    if (block.GetComponent<BlockCollisions>() != null)
                     {
-                        outside++;
-                    }
+                        if (!block.GetComponent<BlockCollisions>().isOnGrid)
+                        {
+                            outside++;
+                        }
+                    }        
                 }
                 if (!grabbedBlock.GetComponent<BlockProperties>().isColliding)
                 {
@@ -69,7 +72,6 @@ public class PlacingBlocks : MonoBehaviour
                     {
                         GameObject.FindGameObjectWithTag("BluePoints").GetComponent<Points>().points += outside;
                     }
-                    
                     grabbedBlock = null;
                 }       
             }

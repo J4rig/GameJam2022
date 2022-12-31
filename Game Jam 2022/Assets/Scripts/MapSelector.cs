@@ -8,7 +8,6 @@ public class MapSelector : MonoBehaviour
     [SerializeField] private List<GameObject> maps = new List<GameObject>();
     [SerializeField] private GameObject shownMap;
     private int i;
-    // Start is called before the first frame update
     void Start()
     {
         i = 0;
@@ -40,11 +39,5 @@ public class MapSelector : MonoBehaviour
     {
         PlayerPrefs.SetString("selectedMap", shownMap.name);
         SceneManager.LoadScene("Game");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

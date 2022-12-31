@@ -24,6 +24,8 @@ public class DraftManager : MonoBehaviour
     [SerializeField] private List<GameObject> player1Hand = new List<GameObject>();
     [SerializeField] private List<GameObject> player2Hand = new List<GameObject>();
 
+    [SerializeField] private GameObject extraCard;
+
     public bool playersTurn = true;
     public bool drafting = false;
     public bool cardPlayed = false;
@@ -45,7 +47,7 @@ public class DraftManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 9; i++)
         {
             shufledCards.Add(allCards[Random.Range(0, allCards.Count)]);
         }
@@ -70,7 +72,7 @@ public class DraftManager : MonoBehaviour
             Text.color = Color.blue;
         }
 
-        if (shufledCards.Count > 0)
+        if (shufledCards.Count > 1)
         {
             if (cardsShown.Count == 0)
             {
@@ -81,6 +83,14 @@ public class DraftManager : MonoBehaviour
                 }
             }
         }
+        else if (shufledCards.Count > 0 && cardsShown.Count == 0)
+        {
+            cardsShown.Add(shufledCards[0]);
+            Instantiate(cardsShown[0], new Vector3(0, 0, 0), Quaternion.identity, draftPanel.transform);
+            cardsShown.Add(extraCard);
+            Instantiate(extraCard, new Vector3(0, 0, 0), Quaternion.identity, draftPanel.transform);
+        }
+
         else
         {
             drafting = false; //drafting phase ends
@@ -91,9 +101,13 @@ public class DraftManager : MonoBehaviour
         }
     }
 
-    private int n;
     private void removeItem(List<GameObject> list)
     {
+        if (list.Count == 0)
+        {
+            return;
+        }
+        int n = 0;
         for (int i = 0; i < list.Count; i++)
         {
             if (list[i] == EventSystem.current.currentSelectedGameObject)

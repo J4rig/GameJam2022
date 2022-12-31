@@ -6,7 +6,7 @@ using UnityEngine;
 public class BlockCollisions : MonoBehaviour
 {
     [SerializeField] private Renderer obj;
-    public bool colliding;
+    public bool isOnGrid;
 
     
 
@@ -16,9 +16,9 @@ public class BlockCollisions : MonoBehaviour
         {
             gameObject.GetComponentInParent<BlockProperties>().colliding++;
         }
-        else if (collision.gameObject.CompareTag("GridBlock"))
+        if (collision.gameObject.CompareTag("GridBlock"))
         {
-            colliding = true;
+            isOnGrid = true;
         }
     }
 
@@ -29,9 +29,9 @@ public class BlockCollisions : MonoBehaviour
         {
             gameObject.GetComponentInParent<BlockProperties>().colliding--;
         }
-        else if (collision.gameObject.CompareTag("GridBlock"))
+        if (collision.gameObject.CompareTag("GridBlock"))
         {
-            colliding = false;
+            isOnGrid = false;
         }
     }
 
@@ -39,7 +39,7 @@ public class BlockCollisions : MonoBehaviour
     {
         if (gameObject.GetComponentInParent<BlockProperties>().canMove)
         {
-            if (colliding)
+            if (isOnGrid)
             {
                 obj.material.color = Color.white;
             }

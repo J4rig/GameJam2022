@@ -8,7 +8,6 @@ public class Points : MonoBehaviour
     [SerializeField] private TMP_Text text;
     public int points = 0;
 
-    // Update is called once per frame
     void Update()
     {
         text.text = points.ToString();
