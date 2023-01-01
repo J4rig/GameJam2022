@@ -153,7 +153,7 @@ public class DraftManager : MonoBehaviour
         foreach (GameObject block in blocksToCreate)
         {
             Debug.Log(EventSystem.current.currentSelectedGameObject.name);
-            GameObject inst = Instantiate(block, new Vector3(-18, i, 0), Quaternion.identity);
+            GameObject inst = Instantiate(block, new Vector3(-14, i, 0), Quaternion.identity);
             inst.GetComponent<BlockProperties>().canMove = true;
             inst.GetComponent<BlockProperties>().playersBlock = playersTurn;
             i += 3;
