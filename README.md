@@ -6,3 +6,6 @@ Autor : Jakub Potoček (xpotoc07)
 Dátum vypracovania : 29.12.2022 - 31.12.2022
 
 Vyprcované v Unity 2021.3.16f1
+
+Ovládanie : Rotácia - šípky
+            Ostatné - myš
